@@ -29,5 +29,6 @@ spec:
               name: storage-volume
       volumes:
         - name: storage-volume
-          persistentVolumeClaim:
-            claimName: deployment-claim
+          emptyDir: {}
+          # persistentVolumeClaim:
+          #  claimName: deployment-claim
