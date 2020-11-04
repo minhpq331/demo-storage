@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: demo-storage
 spec:
-  replicas: 2                 # Number of pods
+  replicas: 1                 # Number of pods
   selector:                    #
     matchLabels:               # This selector MUST MATCH below labels
       app: demo-storage          #
