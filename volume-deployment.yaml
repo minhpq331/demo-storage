@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: deployment-volume
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 20Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/data/data-1"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: deployment-claim
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Mi

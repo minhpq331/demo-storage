@@ -1,0 +1,19 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: demo-storage
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/add-base-url: "true"
+spec:
+  rules:
+  - host: "app.com"               # Domain name
+    http:
+      paths:
+        - pathType: Prefix        # Loại path
+          path: "/"               # Path   
+          backend:
+            serviceName: demo-storage
+            servicePort: 80

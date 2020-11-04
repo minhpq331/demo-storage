@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: demo-storage
+spec:
+  replicas: 2                 # Number of pods
+  selector:                    #
+    matchLabels:               # This selector MUST MATCH below labels
+      app: demo-storage          #
+  serviceName: "demo-storage"
+
+  # Pod template
+  template:
+    metadata:
+      name: demo-storage                
+      labels:
+        app: demo-storage
+    spec:
+      containers:                       
+        - name: web                     
+          image: minhpq331/demo-storage:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          env:
+            - name: PORT
+              value: "3000"
+          volumeMounts:
+            - mountPath: "/tmp/session"
+              name: demo-volume
+  volumeClaimTemplates:
+    - metadata:
+        name: demo-volume
+      spec:
+        storageClassName: manual
+        selector:
+          matchLabels:
+            type: local
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 20Mi
